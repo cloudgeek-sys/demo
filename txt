@@ -1,1 +1,8 @@
-.\venv\Scripts\Activate.ps1
+$cert = Join-Path $PWD "trusted_certs.crt"
+
+# Verify certificate exists
+Test-Path $cert
+
+# Configure pip and Requests
+$env:PIP_CERT = $cert
+$env:REQUESTS_CA_BUNDLE = $cert
