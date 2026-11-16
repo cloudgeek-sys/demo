@@ -1,7 +1,29 @@
-New-Item -ItemType Directory `
-    -Path (Split-Path -Parent $PROFILE) `
-    -Force
 
-if (!(Test-Path $PROFILE)) {
-    New-Item -ItemType File -Path $PROFILE -Force
+# ==========================================
+# POWERSHELL USER PROFILE
+# ==========================================
+
+# Python Windows App Execution Alias
+$env:PYTHON_HOME = "$env:LOCALAPPDATA\Microsoft\WindowsApps"
+
+# Add Python directory to current session PATH
+if (Test-Path $env:PYTHON_HOME) {
+    if (($env:PATH -split ';') -notcontains $env:PYTHON_HOME) {
+        $env:PATH = "$env:PYTHON_HOME;$env:PATH"
+    }
 }
+
+# Python shortcuts
+function python-version {
+    python --version
+}
+
+function pip-version {
+    python -m pip --version
+}
+
+# Startup information
+Write-Host "PowerShell Profile Loaded" -ForegroundColor Green
+Write-Host "Python Alias: $env:PYTHON_HOME" -ForegroundColor Cyan
+
+# ==========================================
