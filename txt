@@ -1,29 +1,14 @@
+python -m pip --version
 
-# ==========================================
-# POWERSHELL USER PROFILE
-# ==========================================
+python -m ensurepip --upgrade
 
-# Python Windows App Execution Alias
-$env:PYTHON_HOME = "$env:LOCALAPPDATA\Microsoft\WindowsApps"
+python -m pip install --upgrade pip
 
-# Add Python directory to current session PATH
-if (Test-Path $env:PYTHON_HOME) {
-    if (($env:PATH -split ';') -notcontains $env:PYTHON_HOME) {
-        $env:PATH = "$env:PYTHON_HOME;$env:PATH"
-    }
-}
+python -m pip --version
 
-# Python shortcuts
-function python-version {
-    python --version
-}
+pip --version
 
-function pip-version {
-    python -m pip --version
-}
 
-# Startup information
-Write-Host "PowerShell Profile Loaded" -ForegroundColor Green
-Write-Host "Python Alias: $env:PYTHON_HOME" -ForegroundColor Cyan
+where.exe pip
 
-# ==========================================
+pip install numpy
