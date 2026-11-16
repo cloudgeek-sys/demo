@@ -1,1 +1,15 @@
+$pythonPath = "$env:LOCALAPPDATA\Microsoft\WindowsApps"
 
+$userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+
+if (($userPath -split ';') -notcontains $pythonPath) {
+    $newPath = if ($userPath) {
+        "$userPath;$pythonPath"
+    } else {
+        $pythonPath
+    }
+
+    [Environment]::SetEnvironmentVariable("Path", $newPath, "User")
+}
+
+Write-Host "Python alias path added to User PATH."
