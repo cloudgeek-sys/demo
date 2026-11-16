@@ -1,14 +1,45 @@
-python -m pip --version
 
-python -m ensurepip --upgrade
+# ==========================================
+# POWERSHELL USER PROFILE
+# ==========================================
 
-python -m pip install --upgrade pip
+# Python Installation
+$env:PYTHON_HOME = "C:\Program Files\Python313"
 
-python -m pip --version
+# Pip Installation
+$env:PIP_HOME = "$env:PYTHON_HOME\Scripts"
 
-pip --version
+# Add Python and Pip directories to PATH
+$pythonPaths = @(
+    $env:PYTHON_HOME
+    $env:PIP_HOME
+)
 
+foreach ($path in $pythonPaths) {
+    if ((Test-Path $path) -and
+        (($env:PATH -split ';') -notcontains $path)) {
+        $env:PATH = "$path;$env:PATH"
+    }
+}
 
-where.exe pip
+# ==========================================
+# PYTHON SHORTCUTS
+# ==========================================
 
-pip install numpy
+function python-version {
+    python --version
+}
+
+function pip-version {
+    python -m pip --version
+}
+
+# ==========================================
+# STARTUP INFORMATION
+# ==========================================
+
+Write-Host "PowerShell Profile Loaded" -ForegroundColor Green
+Write-Host "Python Home: $env:PYTHON_HOME" -ForegroundColor Cyan
+Write-Host "Pip Home: $env:PIP_HOME" -ForegroundColor Cyan
+
+# ==========================================
